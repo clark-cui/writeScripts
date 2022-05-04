@@ -23,5 +23,9 @@ folders.map(file => {
     - ${file.tag}
   ---
   `
-  fs.writeFileSync(file.path, data);
+  // get the prev data
+  let prev = fs.readFileSync(file.path).toString();
+  // replace the old front matters and newline.
+  prev = prev.replace(/\s*---[\s\S]*---\s/, '');
+  fs.writeFileSync(file.path, data + prev);
 })
